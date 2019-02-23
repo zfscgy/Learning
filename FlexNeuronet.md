@@ -45,3 +45,26 @@
 	}
 ```
 
+###LayerFactory API and Initializer
+
+```c++
+	Dataset dataset;
+	dataset.ReadFromCSV("Data/data.csv", 2, false);
+	Model model;
+	Layer * input = model.lf()->MakeInputLayer(2);
+	Layer * pred = model.lf()->ConnectFrom(input, 1, Activations.sigmoid);
+	Layer * label = model.lf()->MakeInputLayer(1);
+	Layer * loss = model.lf()->LinearFromTwoLayers(pred, label, 1, -1, Activations.square);
+	loss->SetTrainable(false);
+	model.SetTargetNeuron(loss->Neuron(0));
+	model.SetData(&dataset);
+	model.BindLayer(input, 0);
+	model.BindLayer(label, 2);
+	Initializer initializer;
+	model.Initialize(&initializer);
+```
+
+```c++
+
+```
+
