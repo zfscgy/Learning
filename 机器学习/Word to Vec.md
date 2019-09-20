@@ -1,2 +1,0 @@
-# Word to Vec
-

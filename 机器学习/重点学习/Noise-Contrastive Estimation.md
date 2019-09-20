@@ -10,7 +10,7 @@
 
 但是这样很容易出现问题，因为模型输出的向量不是归一化的概率向量，也就是说$$p_0+p_1+p_2+...+p_9\ne 1$$，如此训练，很可能导致模型输出向量的每一维度都变得越来越大。如果要进行归一化操作，则我们进行梯度下降的时候计算的便是$$\dfrac{p_i}{p_0+p_1+p_2+...+p_9}$$，又必须把其他所有维度的梯度都计算一遍，就没有减少开销的作用了。
 
-但是论文《Noise-contrastive estimation: A new estimation principle for unnormalized statistical models》提出了一种方法可以避免这种情况的出现，通过人工添加一些“负样本”，可以防止模型最后输出的向量在各个维度都发散。
+但是论文《Noise-contrastive estimation: A new estimation principle for unnormalized statistical models》[1]提出了一种方法可以避免这种情况的出现，通过人工添加一些“负样本”，可以防止模型最后输出的向量在各个维度都发散。
 
 ## 论文浅读
 
@@ -125,3 +125,9 @@ plt.show()
 ![1550992289881](D:\MyDoc\文章\Learn\figs\MNIST_NCE.png)
 
 虽然训练结果很一般，因为没有进行参数调优，网络结构也比较简单，训练轮数也不多。但是说明了利用Noise-Contrastive Estimation 的确可以有效地回避Softmax的运算，因为MNIST数据集只有10种分类，效果不明显。但是对于自然语言处理，比如词向量的生成，如果要把整个词汇表上的概率进行softmax运算，开销就十分巨大了，因此NCE就显得十分必要。
+
+
+
+## 参考文献
+
+[1] Gutmann M, Hyvärinen A. Noise-contrastive estimation: A new estimation principle for unnormalized statistical models[C]//Proceedings of the Thirteenth International Conference on Artificial Intelligence and Statistics. 2010: 297-304.
